@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+/* ===== DESIGN TOKENS (Tailwind v4 @theme) ===== */
+@theme inline {
+  /* Fonts */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Color System */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+
+  /* Glow Colors */
+  --color-glow-primary: var(--glow-primary);
+  --color-glow-accent: var(--glow-accent);
+  --color-glow-cyan: var(--glow-cyan);
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+/* ===== CSS CUSTOM PROPERTIES ===== */
+:root {
+  color-scheme: dark;
+}
+
+/* Dark theme (default) */
+.dark, :root {
+  --background: #06060b;
+  --foreground: #e4e4e7;
+
+  --primary: #00b4ff;
+  --primary-foreground: #06060b;
+
+  --secondary: #06b6d4;
+  --secondary-foreground: #06060b;
+
+  --accent: #8b5cf6;
+  --accent-foreground: #f5f3ff;
+
+  --muted: #111118;
+  --muted-foreground: #71717a;
+
+  --card: #0c0c14;
+  --card-foreground: #e4e4e7;
+
+  --border: #1e1e2a;
+  --ring: #00b4ff;
+
+  --destructive: #ef4444;
+  --success: #22c55e;
+  --warning: #eab308;
+
+  --glow-primary: rgba(0, 180, 255, 0.15);
+  --glow-accent: rgba(139, 92, 246, 0.15);
+  --glow-cyan: rgba(6, 182, 212, 0.12);
+}
+
+/* Light theme (optional override) */
+.light {
+  --background: #fafafa;
+  --foreground: #09090b;
+
+  --primary: #0284c7;
+  --primary-foreground: #f0f9ff;
+
+  --secondary: #0891b2;
+  --secondary-foreground: #f0fdfa;
+
+  --accent: #7c3aed;
+  --accent-foreground: #faf5ff;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+
+  --card: #ffffff;
+  --card-foreground: #09090b;
+
+  --border: #e4e4e7;
+  --ring: #0284c7;
+
+  --destructive: #dc2626;
+  --success: #16a34a;
+  --warning: #ca8a04;
+
+  --glow-primary: rgba(2, 132, 199, 0.1);
+  --glow-accent: rgba(124, 58, 237, 0.1);
+  --glow-cyan: rgba(8, 145, 178, 0.08);
+}
+
+/* ===== BASE STYLES ===== */
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--background);
+}
+
+/* ===== FOCUS STYLES ===== */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Glassmorphism */
+.glass {
+  background: rgba(12, 12, 20, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-strong {
+  background: rgba(12, 12, 20, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Neon Glow Effects */
+.glow-primary {
+  box-shadow: 0 0 20px var(--glow-primary), 0 0 60px var(--glow-primary);
+}
+
+.glow-accent {
+  box-shadow: 0 0 20px var(--glow-accent), 0 0 60px var(--glow-accent);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px var(--glow-cyan), 0 0 60px var(--glow-cyan);
+}
+
+.text-glow-primary {
+  text-shadow: 0 0 10px var(--glow-primary), 0 0 30px var(--glow-primary);
+}
+
+.text-glow-accent {
+  text-shadow: 0 0 10px var(--glow-accent), 0 0 30px var(--glow-accent);
+}
+
+/* Gradient borders */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* Grid pattern background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Dot pattern background */
+.bg-dots {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Gradient text */
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, var(--accent), #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Pulse glow animation */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Scan line effect */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.05) 2px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  pointer-events: none;
+}
