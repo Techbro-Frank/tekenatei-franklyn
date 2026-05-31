@@ -128,68 +128,53 @@ const careers = [
 
 function CareerCards() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      {careers.map((career, i) => {
-        // Border colors - more visible by default, glows brighter on hover
-        const borderColor =
-          career.color === "cyan"
-            ? "border-cyan-500/40 hover:border-cyan-400/80"
-            : career.color === "blue"
-              ? "border-primary/40 hover:border-primary/80"
-              : "border-purple-500/40 hover:border-purple-400/80";
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      {careers.map((career, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 2.2 + i * 0.15 }}
+        >
+          <div className={`hud-card hud-card--${career.color}`}>
+            {/* Corner glow nodes at chamfer vertices */}
+            <span className="hud-node hud-node--v0" />
+            <span className="hud-node hud-node--v1" />
+            <span className="hud-node hud-node--v2" />
+            <span className="hud-node hud-node--v3" />
+            <span className="hud-node hud-node--v4" />
+            <span className="hud-node hud-node--v5" />
+            <span className="hud-node hud-node--v6" />
+            <span className="hud-node hud-node--v7" />
 
-        // Radial glow backgrounds - visible by default, intensifies on hover
-        const glowBg =
-          career.color === "cyan"
-            ? "bg-[radial-gradient(circle_at_top_left,rgba(6,182,212,0.12),transparent_65%)] shadow-[0_0_20px_rgba(6,182,212,0.04)] hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]"
-            : career.color === "blue"
-              ? "bg-[radial-gradient(circle_at_top_left,rgba(0,180,255,0.12),transparent_65%)] shadow-[0_0_20px_rgba(0,180,255,0.04)] hover:shadow-[0_0_30px_rgba(0,180,255,0.15)]"
-              : "bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.12),transparent_65%)] shadow-[0_0_20px_rgba(139,92,246,0.04)] hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]";
+            <div className="hud-card-content">
+              {/* Icon */}
+              <div className="hud-icon-box inline-flex p-1.5 rounded-md border bg-transparent mb-3 hud-icon">
+                <career.icon className="h-4 w-4" strokeWidth={1.5} />
+              </div>
 
-        const iconBg =
-          career.color === "cyan"
-            ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"
-            : career.color === "blue"
-              ? "bg-primary/10 text-primary border border-primary/20"
-              : "bg-purple-500/10 text-purple-400 border border-purple-500/20";
+              {/* Title */}
+              <h3 className="hud-card-title text-[14px] xl:text-[15px] font-bold tracking-wide mb-2 whitespace-pre-line leading-tight">
+                {career.title}
+              </h3>
 
-        const btnColor =
-          career.color === "cyan"
-            ? "border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10"
-            : career.color === "blue"
-              ? "border-primary/40 text-primary hover:bg-primary/10"
-              : "border-purple-500/40 text-purple-400 hover:bg-purple-500/10";
+              {/* Description */}
+              <p className="text-[11px] xl:text-[12px] text-[#B0B7C3] leading-relaxed mb-4">
+                {career.description}
+              </p>
 
-        return (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 2.2 + i * 0.15 }}
-            whileHover={{ scale: 1.03, y: -4 }}
-            className={`relative rounded-xl border ${borderColor} ${glowBg} bg-card/45 backdrop-blur-sm p-4 xl:p-4.5 transition-all duration-300 group cursor-pointer`}
-          >
-            {/* Animated gradient border on hover */}
-            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none gradient-border" />
- 
-            <div className={`inline-flex p-1.5 rounded-lg ${iconBg} mb-2.5`}>
-              <career.icon className="h-4 w-4" />
+              {/* Button */}
+              <button className="hud-btn">
+                EXPLORE <ArrowRight className="h-3 w-3" />
+              </button>
             </div>
-            <h3 className="text-[12px] xl:text-[13px] font-bold tracking-wide mb-1.5 whitespace-pre-line leading-tight">
-              {career.title}
-            </h3>
-            <p className="text-[10px] xl:text-[11px] text-muted-foreground leading-relaxed mb-3.5">
-              {career.description}
-            </p>
-            <button className={`flex items-center gap-1 px-2.5 py-1 rounded text-[9px] font-bold tracking-wider border ${btnColor} transition-all`}>
-              EXPLORE <ArrowRight className="h-2.5 w-2.5" />
-            </button>
-          </motion.div>
-        );
-      })}
+          </div>
+        </motion.div>
+      ))}
     </div>
   );
 }
+
 
 /* ─────────── simplified world map svg ─────────── */
 function WorldMapSVG() {
@@ -360,28 +345,28 @@ const metrics = [
   { icon: Rocket, value: "15+", label: "PROJECTS\nDELIVERED" },
   { icon: Users, value: "10+", label: "HAPPY\nCLIENTS" },
   { icon: Clock, value: "2+", label: "YEARS OF\nEXPERIENCE" },
-  { icon: Award, value: <Infinity className="h-7 w-7" />, label: "COMMITMENT TO\nEXCELLENCE" },
+  { icon: Award, value: <Infinity className="h-5 w-5" />, label: "COMMITMENT TO\nEXCELLENCE" },
 ];
 
 function BottomMetrics() {
   return (
-    <div className="flex flex-wrap items-center gap-6 sm:gap-10">
+    <div className="flex flex-wrap items-center gap-5 sm:gap-8">
       {metrics.map((m, i) => (
         <motion.div
           key={i}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 2.8 + i * 0.1 }}
-          className="flex items-center gap-3"
+          className="flex items-center gap-2.5"
         >
-          <div className="p-2 rounded-lg border border-border bg-muted/30">
-            <m.icon className="h-4 w-4 text-primary" />
+          <div className="p-1.5 rounded-lg border border-border bg-muted/30">
+            <m.icon className="h-3.5 w-3.5 text-primary" />
           </div>
           <div>
-            <div className="text-2xl font-bold font-mono tabular-nums leading-none">
+            <div className="text-lg font-bold font-mono tabular-nums leading-none">
               {m.value}
             </div>
-            <div className="text-[9px] font-semibold tracking-[0.15em] text-muted-foreground whitespace-pre-line leading-tight mt-0.5">
+            <div className="text-[8px] font-semibold tracking-[0.15em] text-muted-foreground whitespace-pre-line leading-tight mt-0.5">
               {m.label}
             </div>
           </div>
@@ -579,16 +564,16 @@ export default function HeroSection() {
         </div>
 
         {/* Main content */}
-        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 lg:px-10 pt-20 pb-4 flex-1 flex flex-col">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch flex-1 w-full">
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 lg:px-10 pt-[72px] pb-2 flex-1 flex flex-col">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch flex-1 w-full">
             {/* ── LEFT COLUMN: Hero content ── */}
-            <div className="lg:col-span-7 flex flex-col justify-between py-2">
-              <div className="space-y-4">
+            <div className="lg:col-span-7 flex flex-col justify-between py-1">
+              <div className="space-y-3">
                 <HeroTag />
                 <AnimatedTitle />
 
                 {/* Hero copy */}
-                <div className="space-y-1 max-w-lg">
+                <div className="space-y-0.5 max-w-lg">
                   {[
                     "Hi, welcome to my world.",
                     "I am a Digital Leader, Strategist, Mentor and Innovator with an Entrepreneurial mindset.",
@@ -602,7 +587,7 @@ export default function HeroSection() {
                       initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 1.3 + i * 0.1 }}
-                      className="text-[12px] xl:text-[13px] text-muted-foreground leading-relaxed"
+                      className="text-[11px] xl:text-[12px] text-muted-foreground leading-relaxed"
                     >
                       {line}
                     </motion.p>
@@ -613,7 +598,7 @@ export default function HeroSection() {
               </div>
 
               {/* Career cards */}
-              <div className="mt-5">
+              <div className="mt-3">
                 <CareerCards />
               </div>
             </div>
@@ -624,7 +609,7 @@ export default function HeroSection() {
             </div>
 
             {/* ── RIGHT COLUMN: Widgets ── */}
-            <div className="lg:col-span-3 flex flex-col justify-between py-2 max-w-[275px] xl:max-w-[290px] ml-auto w-full h-full self-stretch">
+            <div className="lg:col-span-3 flex flex-col justify-between py-1 max-w-[275px] xl:max-w-[290px] ml-auto w-full h-full self-stretch">
               <SystemStatus />
               <MarketWatch />
             </div>
@@ -633,8 +618,8 @@ export default function HeroSection() {
 
         {/* ── BOTTOM BAR: Metrics + Quote ── */}
         <div className="relative z-10 border-t border-border bg-card/30 backdrop-blur-sm">
-          <div className="mx-auto max-w-[1440px] px-6 lg:px-10 py-4 xl:py-5">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="mx-auto max-w-[1440px] px-6 lg:px-10 py-3">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
               <BottomMetrics />
               <RotatingQuote />
             </div>

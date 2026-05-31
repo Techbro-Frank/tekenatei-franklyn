@@ -290,3 +290,203 @@ html {
   );
   pointer-events: none;
 }
+
+/* ===== HUD CAREER PANEL CARDS ===== */
+
+/* Chamfer clip-path — 16px 45° corner cuts */
+.hud-card {
+  --chamfer: 16px;
+  position: relative;
+  overflow: visible;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+/* Border layer — full colored polygon shape */
+.hud-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(
+    var(--chamfer) 0%,
+    calc(100% - var(--chamfer)) 0%,
+    100% var(--chamfer),
+    100% calc(100% - var(--chamfer)),
+    calc(100% - var(--chamfer)) 100%,
+    var(--chamfer) 100%,
+    0% calc(100% - var(--chamfer)),
+    0% var(--chamfer)
+  );
+  transition: filter 0.3s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Dark interior fill — 1px inset creates the border */
+.hud-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  clip-path: polygon(
+    15px 0%,
+    calc(100% - 15px) 0%,
+    100% 15px,
+    100% calc(100% - 15px),
+    calc(100% - 15px) 100%,
+    15px 100%,
+    0% calc(100% - 15px),
+    0% 15px
+  );
+  background: linear-gradient(
+    170deg,
+    rgba(10, 14, 22, 0.98) 0%,
+    rgba(6, 8, 14, 0.99) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content sits above both pseudo-elements */
+.hud-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 20px 16px 18px;
+}
+
+/* Corner glow nodes — static, positioned at chamfer vertices */
+.hud-card .hud-node {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* 8 vertex positions of the octagonal frame */
+.hud-node--v0 { top: -1px;  left: var(--chamfer);  transform: translate(-50%, -50%); }
+.hud-node--v1 { top: var(--chamfer);  left: -1px;  transform: translate(-50%, -50%); }
+.hud-node--v2 { top: -1px;  right: var(--chamfer); transform: translate(50%, -50%); }
+.hud-node--v3 { top: var(--chamfer);  right: -1px; transform: translate(50%, -50%); }
+.hud-node--v4 { bottom: var(--chamfer); right: -1px; transform: translate(50%, 50%); }
+.hud-node--v5 { bottom: -1px; right: var(--chamfer); transform: translate(50%, 50%); }
+.hud-node--v6 { bottom: -1px; left: var(--chamfer);  transform: translate(-50%, 50%); }
+.hud-node--v7 { bottom: var(--chamfer); left: -1px;  transform: translate(-50%, 50%); }
+
+/* Icon transition for hover */
+.hud-icon {
+  transition: transform 0.3s ease;
+}
+
+/* HUD Button */
+.hud-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-width: 1px;
+  border-style: solid;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+/* ── Cyan variant (#00F5D4) ── */
+.hud-card--cyan::before {
+  background: #00F5D4;
+  filter: drop-shadow(0 0 3px rgba(0, 245, 212, 0.2));
+}
+.hud-card--cyan .hud-node {
+  background: #00F5D4;
+  box-shadow: 0 0 5px rgba(0, 245, 212, 0.6), 0 0 10px rgba(0, 245, 212, 0.2);
+}
+.hud-card--cyan .hud-icon-box {
+  border-color: rgba(0, 245, 212, 0.3);
+  color: #00F5D4;
+}
+.hud-card--cyan .hud-card-title {
+  color: #ffffff;
+}
+.hud-card--cyan .hud-btn {
+  border-color: rgba(0, 245, 212, 0.45);
+  color: #00F5D4;
+  box-shadow: 0 0 4px rgba(0, 245, 212, 0.1);
+}
+.hud-card--cyan .hud-btn:hover {
+  box-shadow: 0 0 8px rgba(0, 245, 212, 0.25);
+  border-color: rgba(0, 245, 212, 0.65);
+}
+
+/* ── Blue variant (#00AEEF) ── */
+.hud-card--blue::before {
+  background: #00AEEF;
+  filter: drop-shadow(0 0 3px rgba(0, 174, 239, 0.2));
+}
+.hud-card--blue .hud-node {
+  background: #00AEEF;
+  box-shadow: 0 0 5px rgba(0, 174, 239, 0.6), 0 0 10px rgba(0, 174, 239, 0.2);
+}
+.hud-card--blue .hud-icon-box {
+  border-color: rgba(0, 174, 239, 0.3);
+  color: #00AEEF;
+}
+.hud-card--blue .hud-card-title {
+  color: #ffffff;
+}
+.hud-card--blue .hud-btn {
+  border-color: rgba(0, 174, 239, 0.45);
+  color: #00AEEF;
+  box-shadow: 0 0 4px rgba(0, 174, 239, 0.1);
+}
+.hud-card--blue .hud-btn:hover {
+  box-shadow: 0 0 8px rgba(0, 174, 239, 0.25);
+  border-color: rgba(0, 174, 239, 0.65);
+}
+
+/* ── Purple variant (#C44DFF) ── */
+.hud-card--purple::before {
+  background: #C44DFF;
+  filter: drop-shadow(0 0 3px rgba(196, 77, 255, 0.2));
+}
+.hud-card--purple .hud-node {
+  background: #C44DFF;
+  box-shadow: 0 0 5px rgba(196, 77, 255, 0.6), 0 0 10px rgba(196, 77, 255, 0.2);
+}
+.hud-card--purple .hud-icon-box {
+  border-color: rgba(196, 77, 255, 0.3);
+  color: #C44DFF;
+}
+.hud-card--purple .hud-card-title {
+  color: #ffffff;
+}
+.hud-card--purple .hud-btn {
+  border-color: rgba(196, 77, 255, 0.45);
+  color: #C44DFF;
+  box-shadow: 0 0 4px rgba(196, 77, 255, 0.1);
+}
+.hud-card--purple .hud-btn:hover {
+  box-shadow: 0 0 8px rgba(196, 77, 255, 0.25);
+  border-color: rgba(196, 77, 255, 0.65);
+}
+
+/* ── Hover: translateY + border glow increase + icon scale ── */
+.hud-card:hover {
+  transform: translateY(-4px);
+}
+.hud-card--cyan:hover::before {
+  filter: drop-shadow(0 0 6px rgba(0, 245, 212, 0.4));
+}
+.hud-card--blue:hover::before {
+  filter: drop-shadow(0 0 6px rgba(0, 174, 239, 0.4));
+}
+.hud-card--purple:hover::before {
+  filter: drop-shadow(0 0 6px rgba(196, 77, 255, 0.4));
+}
+.hud-card:hover .hud-icon {
+  transform: scale(1.05);
+}
