@@ -44,7 +44,8 @@
 }
 
 /* Dark theme (default) */
-.dark, :root {
+.dark,
+:root {
   --background: #06060b;
   --foreground: #e4e4e7;
 
@@ -159,6 +160,7 @@ html {
 
 /* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -257,8 +259,15 @@ html {
 
 /* Animated gradient background */
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .animate-gradient {
@@ -268,8 +277,15 @@ html {
 
 /* Pulse glow animation */
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 .animate-pulse-glow {
@@ -281,13 +297,11 @@ html {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.05) 2px,
-    rgba(0, 0, 0, 0.05) 4px
-  );
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.05) 2px,
+      rgba(0, 0, 0, 0.05) 4px);
   pointer-events: none;
 }
 
@@ -307,16 +321,14 @@ html {
   content: "";
   position: absolute;
   inset: 0;
-  clip-path: polygon(
-    var(--chamfer) 0%,
-    calc(100% - var(--chamfer)) 0%,
-    100% var(--chamfer),
-    100% calc(100% - var(--chamfer)),
-    calc(100% - var(--chamfer)) 100%,
-    var(--chamfer) 100%,
-    0% calc(100% - var(--chamfer)),
-    0% var(--chamfer)
-  );
+  clip-path: polygon(var(--chamfer) 0%,
+      calc(100% - var(--chamfer)) 0%,
+      100% var(--chamfer),
+      100% calc(100% - var(--chamfer)),
+      calc(100% - var(--chamfer)) 100%,
+      var(--chamfer) 100%,
+      0% calc(100% - var(--chamfer)),
+      0% var(--chamfer));
   transition: filter 0.3s ease;
   z-index: 0;
   pointer-events: none;
@@ -327,21 +339,17 @@ html {
   content: "";
   position: absolute;
   inset: 1px;
-  clip-path: polygon(
-    15px 0%,
-    calc(100% - 15px) 0%,
-    100% 15px,
-    100% calc(100% - 15px),
-    calc(100% - 15px) 100%,
-    15px 100%,
-    0% calc(100% - 15px),
-    0% 15px
-  );
-  background: linear-gradient(
-    170deg,
-    rgba(10, 14, 22, 0.98) 0%,
-    rgba(6, 8, 14, 0.99) 100%
-  );
+  clip-path: polygon(15px 0%,
+      calc(100% - 15px) 0%,
+      100% 15px,
+      100% calc(100% - 15px),
+      calc(100% - 15px) 100%,
+      15px 100%,
+      0% calc(100% - 15px),
+      0% 15px);
+  background: linear-gradient(170deg,
+      rgba(10, 14, 22, 0.98) 0%,
+      rgba(6, 8, 14, 0.99) 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -365,14 +373,53 @@ html {
 }
 
 /* 8 vertex positions of the octagonal frame */
-.hud-node--v0 { top: -1px;  left: var(--chamfer);  transform: translate(-50%, -50%); }
-.hud-node--v1 { top: var(--chamfer);  left: -1px;  transform: translate(-50%, -50%); }
-.hud-node--v2 { top: -1px;  right: var(--chamfer); transform: translate(50%, -50%); }
-.hud-node--v3 { top: var(--chamfer);  right: -1px; transform: translate(50%, -50%); }
-.hud-node--v4 { bottom: var(--chamfer); right: -1px; transform: translate(50%, 50%); }
-.hud-node--v5 { bottom: -1px; right: var(--chamfer); transform: translate(50%, 50%); }
-.hud-node--v6 { bottom: -1px; left: var(--chamfer);  transform: translate(-50%, 50%); }
-.hud-node--v7 { bottom: var(--chamfer); left: -1px;  transform: translate(-50%, 50%); }
+.hud-node--v0 {
+  top: -1px;
+  left: var(--chamfer);
+  transform: translate(-50%, -50%);
+}
+
+.hud-node--v1 {
+  top: var(--chamfer);
+  left: -1px;
+  transform: translate(-50%, -50%);
+}
+
+.hud-node--v2 {
+  top: -1px;
+  right: var(--chamfer);
+  transform: translate(50%, -50%);
+}
+
+.hud-node--v3 {
+  top: var(--chamfer);
+  right: -1px;
+  transform: translate(50%, -50%);
+}
+
+.hud-node--v4 {
+  bottom: var(--chamfer);
+  right: -1px;
+  transform: translate(50%, 50%);
+}
+
+.hud-node--v5 {
+  bottom: -1px;
+  right: var(--chamfer);
+  transform: translate(50%, 50%);
+}
+
+.hud-node--v6 {
+  bottom: -1px;
+  left: var(--chamfer);
+  transform: translate(-50%, 50%);
+}
+
+.hud-node--v7 {
+  bottom: var(--chamfer);
+  left: -1px;
+  transform: translate(-50%, 50%);
+}
 
 /* Icon transition for hover */
 .hud-icon {
@@ -401,22 +448,27 @@ html {
   background: #00F5D4;
   filter: drop-shadow(0 0 3px rgba(0, 245, 212, 0.2));
 }
+
 .hud-card--cyan .hud-node {
   background: #00F5D4;
   box-shadow: 0 0 5px rgba(0, 245, 212, 0.6), 0 0 10px rgba(0, 245, 212, 0.2);
 }
+
 .hud-card--cyan .hud-icon-box {
   border-color: rgba(0, 245, 212, 0.3);
   color: #00F5D4;
 }
+
 .hud-card--cyan .hud-card-title {
   color: #ffffff;
 }
+
 .hud-card--cyan .hud-btn {
   border-color: rgba(0, 245, 212, 0.45);
   color: #00F5D4;
   box-shadow: 0 0 4px rgba(0, 245, 212, 0.1);
 }
+
 .hud-card--cyan .hud-btn:hover {
   box-shadow: 0 0 8px rgba(0, 245, 212, 0.25);
   border-color: rgba(0, 245, 212, 0.65);
@@ -427,22 +479,27 @@ html {
   background: #00AEEF;
   filter: drop-shadow(0 0 3px rgba(0, 174, 239, 0.2));
 }
+
 .hud-card--blue .hud-node {
   background: #00AEEF;
   box-shadow: 0 0 5px rgba(0, 174, 239, 0.6), 0 0 10px rgba(0, 174, 239, 0.2);
 }
+
 .hud-card--blue .hud-icon-box {
   border-color: rgba(0, 174, 239, 0.3);
   color: #00AEEF;
 }
+
 .hud-card--blue .hud-card-title {
   color: #ffffff;
 }
+
 .hud-card--blue .hud-btn {
   border-color: rgba(0, 174, 239, 0.45);
   color: #00AEEF;
   box-shadow: 0 0 4px rgba(0, 174, 239, 0.1);
 }
+
 .hud-card--blue .hud-btn:hover {
   box-shadow: 0 0 8px rgba(0, 174, 239, 0.25);
   border-color: rgba(0, 174, 239, 0.65);
@@ -453,22 +510,27 @@ html {
   background: #C44DFF;
   filter: drop-shadow(0 0 3px rgba(196, 77, 255, 0.2));
 }
+
 .hud-card--purple .hud-node {
   background: #C44DFF;
   box-shadow: 0 0 5px rgba(196, 77, 255, 0.6), 0 0 10px rgba(196, 77, 255, 0.2);
 }
+
 .hud-card--purple .hud-icon-box {
   border-color: rgba(196, 77, 255, 0.3);
   color: #C44DFF;
 }
+
 .hud-card--purple .hud-card-title {
   color: #ffffff;
 }
+
 .hud-card--purple .hud-btn {
   border-color: rgba(196, 77, 255, 0.45);
   color: #C44DFF;
   box-shadow: 0 0 4px rgba(196, 77, 255, 0.1);
 }
+
 .hud-card--purple .hud-btn:hover {
   box-shadow: 0 0 8px rgba(196, 77, 255, 0.25);
   border-color: rgba(196, 77, 255, 0.65);
@@ -478,15 +540,19 @@ html {
 .hud-card:hover {
   transform: translateY(-4px);
 }
+
 .hud-card--cyan:hover::before {
   filter: drop-shadow(0 0 6px rgba(0, 245, 212, 0.4));
 }
+
 .hud-card--blue:hover::before {
   filter: drop-shadow(0 0 6px rgba(0, 174, 239, 0.4));
 }
+
 .hud-card--purple:hover::before {
   filter: drop-shadow(0 0 6px rgba(196, 77, 255, 0.4));
 }
+
 .hud-card:hover .hud-icon {
   transform: scale(1.05);
 }
