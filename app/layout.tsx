@@ -3,6 +3,7 @@ import { fontSans, fontMono, fontScript } from "@/lib/fonts";
 import { siteConfig } from "@/lib/constants";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -71,8 +72,9 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontMono.variable} ${fontScript.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-background font-sans antialiased cursor-none md:cursor-none">
+      <body className="min-h-screen bg-background font-sans antialiased md:cursor-none">
         <ThemeProvider>
+          <CustomCursor />
           <div className="relative flex min-h-screen flex-col">
             <Navbar />
             <div className="flex-1">{children}</div>

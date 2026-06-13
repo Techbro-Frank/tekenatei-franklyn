@@ -2,24 +2,20 @@ import type { Metadata } from "next";
 import { PageContainer } from "@/components/layout/page-container";
 import { PageTransition } from "@/components/animations/page-transition";
 import { generatePageMetadata } from "@/lib/metadata";
+import MyStoryContent from "@/components/sections/my-story-content";
+import "@/styles/my-story.css";
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Journey",
-  description: "Follow the professional journey and career timeline of Tekenatei Franklyn.",
+  title: "My Journey",
+  description:
+    "The journey of Tekenatei Franklyn — from a small community in Bayelsa State to building technology solutions. A story of resilience, purpose, and continuous growth.",
 });
 
 export default function JourneyPage() {
   return (
     <PageTransition>
-      <PageContainer>
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-xs font-mono text-primary mb-6">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            SECTION: JOURNEY
-          </div>
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">Journey</h1>
-          <p className="text-muted-foreground font-mono text-sm">Coming soon...</p>
-        </div>
+      <PageContainer narrow>
+        <MyStoryContent />
       </PageContainer>
     </PageTransition>
   );

@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
-import { Menu, X, Settings } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { useNavStore } from "@/store/nav-store";
 
 const navItems = [
+  { label: "HOME", href: "/" },
   { label: "ABOUT", href: "/about" },
   { label: "MY JOURNEY", href: "/journey" },
   { label: "PORTFOLIOS", href: "/portfolios" },
@@ -21,10 +23,22 @@ export function Navbar() {
   const pathname = usePathname();
   const { isAtTop } = useScrollDirection();
   const { isMobileMenuOpen, setMobileMenuOpen } = useNavStore();
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname, setMobileMenuOpen]);
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
+
+  const isDark = !mounted || resolvedTheme === "dark";
 
   return (
     <>
@@ -90,19 +104,59 @@ export function Navbar() {
               >
                 LET&apos;S CONNECT
               </Link>
-              <button className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Settings">
-                <Settings className="h-4 w-4" />
+
+              {/* Theme Toggle Button */}
+              <button
+                onClick={toggleTheme}
+                className="relative p-2 text-muted-foreground hover:text-foreground transition-all duration-300 group"
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                <div className="relative h-4 w-4 overflow-hidden">
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      y: isDark ? 0 : -20,
+                      opacity: isDark ? 1 : 0,
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <Moon className="h-4 w-4" />
+                  </motion.div>
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      y: isDark ? 20 : 0,
+                      opacity: isDark ? 0 : 1,
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <Sun className="h-4 w-4 text-amber-500" />
+                  </motion.div>
+                </div>
               </button>
             </div>
 
             {/* Mobile Toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden flex h-9 w-9 items-center justify-center rounded-md border border-border bg-muted/50 hover:bg-muted transition-colors"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
+            <div className="md:hidden flex items-center gap-2">
+              {/* Mobile Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-muted/50 hover:bg-muted transition-colors"
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4 text-amber-500" />}
+              </button>
+
+              <button
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-muted/50 hover:bg-muted transition-colors"
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              >
+                {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              </button>
+            </div>
           </div>
         </nav>
       </motion.header>

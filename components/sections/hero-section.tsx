@@ -344,7 +344,7 @@ function MarketWatch() {
 const metrics = [
   { icon: Rocket, value: "15+", label: "PROJECTS\nDELIVERED" },
   { icon: Users, value: "10+", label: "HAPPY\nCLIENTS" },
-  { icon: Clock, value: "2+", label: "YEARS OF\nEXPERIENCE" },
+  { icon: Clock, value: "3+", label: "YEARS OF\nEXPERIENCE" },
   { icon: Award, value: <Infinity className="h-5 w-5" />, label: "COMMITMENT TO\nEXCELLENCE" },
 ];
 
@@ -399,10 +399,51 @@ function RotatingQuote() {
     if (q.includes("BUILD IT")) {
       return (
         <span>
-          I DON&apos;T JUST FOLLOW THE FUTURE, <br />
+          I DON&apos;T JUST <span className="text-cyan-400 font-black">FOLLOW</span> THE FUTURE, <br />
           I <span className="text-primary font-black">BUILD IT</span>,{" "}
           <span className="text-emerald-400 font-black">SECURE IT</span>, AND{" "}
           <span className="text-purple-400 font-black">INVEST IN IT</span>.
+        </span>
+      );
+    }
+    if (q.includes("EXECUTION")) {
+      return (
+        <span>
+          <span className="text-cyan-400 font-black">VISION</span> WITHOUT{" "}
+          <span className="text-primary font-black">EXECUTION</span> <br />
+          IS ONLY{" "}
+          <span className="text-purple-400 font-black">IMAGINATION</span>.{" "}
+          <span className="text-emerald-400 font-black">ACT NOW</span>.
+        </span>
+      );
+    }
+    if (q.includes("CURIOSITY")) {
+      return (
+        <span>
+          <span className="text-primary font-black">INNOVATION</span> STARTS WHERE <br />
+          <span className="text-cyan-400 font-black">CURIOSITY</span> MEETS{" "}
+          <span className="text-purple-400 font-black">DISCIPLINE</span> AND{" "}
+          <span className="text-emerald-400 font-black">PURPOSE</span>.
+        </span>
+      );
+    }
+    if (q.includes("REAL PROBLEMS")) {
+      return (
+        <span>
+          <span className="text-cyan-400 font-black">TECHNOLOGY</span> IS MOST{" "}
+          <span className="text-purple-400 font-black">POWERFUL</span> <br />
+          WHEN IT <span className="text-primary font-black">SOLVES</span>{" "}
+          <span className="text-emerald-400 font-black">REAL PROBLEMS</span>.
+        </span>
+      );
+    }
+    if (q.includes("ADAPT")) {
+      return (
+        <span>
+          <span className="text-primary font-black">BUILD</span>.{" "}
+          <span className="text-cyan-400 font-black">LEARN</span>.{" "}
+          <span className="text-purple-400 font-black">ADAPT</span>.{" "}
+          <span className="text-emerald-400 font-black">REPEAT</span>.
         </span>
       );
     }
@@ -460,11 +501,13 @@ function CyberGrid() {
       const h = canvas.height;
       ctx.clearRect(0, 0, w, h);
 
+      const isLight = document.documentElement.classList.contains("light");
+
       // Slow-moving grid
       const gridSize = 60;
       const offsetY = (frame * 0.15) % gridSize;
 
-      ctx.strokeStyle = "rgba(0, 180, 255, 0.03)";
+      ctx.strokeStyle = isLight ? "rgba(0, 80, 140, 0.04)" : "rgba(0, 180, 255, 0.03)";
       ctx.lineWidth = 0.5;
 
       for (let x = 0; x < w; x += gridSize) {
@@ -484,10 +527,10 @@ function CyberGrid() {
       for (let i = 0; i < 30; i++) {
         const px = ((Math.sin(i * 7.3 + frame * 0.003) + 1) / 2) * w;
         const py = ((Math.cos(i * 4.7 + frame * 0.002) + 1) / 2) * h;
-        const alpha = (Math.sin(frame * 0.01 + i) + 1) * 0.015;
+        const alpha = (Math.sin(frame * 0.01 + i) + 1) * (isLight ? 0.012 : 0.015);
         ctx.beginPath();
         ctx.arc(px, py, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 180, 255, ${alpha})`;
+        ctx.fillStyle = isLight ? `rgba(0, 80, 140, ${alpha})` : `rgba(0, 180, 255, ${alpha})`;
         ctx.fill();
       }
 
@@ -511,33 +554,7 @@ function CyberGrid() {
   );
 }
 
-/* ─────────── custom cursor ─────────── */
-function CustomCursor() {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
 
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  return (
-    <>
-      <div
-        className="fixed pointer-events-none z-[9999] hidden md:block"
-        style={{ left: pos.x - 4, top: pos.y - 4 }}
-      >
-        <div className="h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(0,180,255,0.5)]" />
-      </div>
-      <div
-        className="fixed pointer-events-none z-[9998] hidden md:block transition-all duration-150"
-        style={{ left: pos.x - 16, top: pos.y - 16 }}
-      >
-        <div className="h-8 w-8 rounded-full border border-primary/30" />
-      </div>
-    </>
-  );
-}
 
 
 
@@ -547,10 +564,11 @@ function CustomCursor() {
 export default function HeroSection() {
   return (
     <>
-      <CustomCursor />
       <CyberGrid />
 
-      <section className="relative min-h-screen lg:min-h-0 lg:h-screen lg:max-h-screen overflow-hidden flex flex-col justify-between">
+      {/* Force dark mode on hero — unaffected by theme toggle */}
+      <div className="dark" style={{ colorScheme: 'dark' }}>
+      <section className="relative min-h-screen lg:min-h-0 lg:h-screen lg:max-h-screen overflow-hidden flex flex-col justify-between bg-[#06060b] text-[#e4e4e7]">
         {/* Hero background image */}
         <div className="absolute inset-0 z-0 bg-black">
           <div
@@ -617,7 +635,7 @@ export default function HeroSection() {
         </div>
 
         {/* ── BOTTOM BAR: Metrics + Quote ── */}
-        <div className="relative z-10 border-t border-border bg-card/30 backdrop-blur-sm">
+        <div className="relative z-10 border-t border-[#1e1e2a] bg-[#0c0c14]/30 backdrop-blur-sm">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-10 py-3">
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
               <BottomMetrics />
@@ -626,6 +644,7 @@ export default function HeroSection() {
           </div>
         </div>
       </section>
+      </div>
     </>
   );
 }
